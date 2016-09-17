@@ -1,0 +1,14 @@
+var results="The results were not handled by the jcgi.";
+console.log ("running cgi test");
+var res = {};
+try {
+	args.res.status (200);
+	args.res.setHeader ("Content-Type", "application/json");
+	args.res.end (results = "{'msg':'all done', 'err':200}");
+	console.log ("jcgi complete");
+	res = {'handled': true, 'results': results};
+}
+catch (err) {
+	console.log ('cgi test ' + err);
+	res = "Oops";
+}

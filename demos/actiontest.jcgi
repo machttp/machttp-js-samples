@@ -1,0 +1,22 @@
+// install this in an action with a path like /actiontest/:id and this script as the script arg
+// then access the page like: http://localhost:3000/actiontest/mrwheat?searchArgs=something
+
+//this function looks just like an Express.js route hander. Check Express docs for details:
+//  http://expressjs.com/en/4x/api.html#app.use
+
+function handler (req, res, next) {
+	try {
+		res.setHeader ("Content-Type", "text/html");
+		res.writeHead (200);
+		var s = "Hello from the ActionTest: query=" + JSON.stringify (args.req.query);
+		s += "<p>id=" + args.req.params.id;
+		return res.end (s);
+		//return args.next(); if this is some sort of pass-thru handler like custom logging etc.
+	}
+	catch (err) {
+		console.log ("action err: " + JSON.stringify (err));
+		return res.end ("oops");
+	}
+}
+
+handler (args.req, args.res, args.next); //call the handler so it thinks Express is calling

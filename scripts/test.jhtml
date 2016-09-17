@@ -1,0 +1,8 @@
+JHTML Test Cases <p>
+<p>skip=<% args.skipHTML; %>
+<% args.skipHTML = true;"true"; %>
+<p>skip=<% args.skipHTML; %>
+Skipping this text!
+<% args.skipHTML = false; "false"; %>
+Not skipping this!
+<p>skip=<% args.skipHTML; %>
