@@ -50,7 +50,7 @@
 				{width:500, height:500});
 			
 			//return a little status info to the browser that the app is running and make sure the remaining HTML skipped
-			res="<html><body><h2>Starting your news service...</h2>You can close this window now.</body></html> <!-- ";
+			res="<html><body><h2>Starting your news service... </h2>Check MacHTTP-js for the news console window.<p />You can close this window now.</body></html>";
 			args.skipHTML = true;
 
 		}
@@ -60,10 +60,7 @@
 <html>
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>News Sample</title>
-	<style>
-	</style>
-	</style>
+	<title>News Console</title>
 	<script>
 		try {
 			//this code sets up a reasonable facsimile of a browser runtime in MacHTTP-js windows
@@ -92,7 +89,7 @@
 									var css="";
 										var theme = context.odb.getAttribute ("system/settings/globalTheme");
 										css = context.odb.getAttribute ("system/themes/" + theme);
-									css;
+									args.skipHTML ? "" : css;
 								%>">
 	<script src="/_static/lib/bootstrap/dist/js/bootstrap.min.js"></script>
 
@@ -128,71 +125,72 @@
 	<hr />
 	<p />
 	<a onclick="OpenPage('https://newsapi.org')">News sources powered by NewsAPI.org</a>
-<script>
 	
-	function msg (m) {
-		console.log (m);
-	}
+	<script>
 	
-	function IgnoreResults (data) {};
-	
-	function HandleResults (data) {
-		msg (JSON.stringify (data, null, 4));
-		$("#title").html('<a onclick="OpenPage(\'' + data.articles[0].url + '\')">' +
-				data.articles[0].title + '</a>');
-		$("#article").html(data.articles[0].description);
-		$("#image").html ('<img src="' + data.articles[0].urlToImage + '" width="250">');
-	}
-	
-	function OpenPage (url) {
-		FetchNews ("newsConsole.jhtml?url=" + url, IgnoreResults);
-		return false;
-	}
-	
-	var service = "https://newsapi.org/v1/articles?source=reuters&sortBy=latest&apiKey=769af25d185c43f4b86de4e2b40540e9";
-	
-	function FetchNews (svc, results) {
-		msg ("fetching...");
-		try {
-			$.ajax ({
-					 type: "GET",
-					 url: svc,
-					 dataType:'json',
-					 data: null,
-					 success: function (data) {
-						results (data);	
-						}
-			});
-		} catch (err) {
-			msg ("FetchNews err: " + err);
+		function msg (m) {
+			console.log (m);
 		}
+	
+		function IgnoreResults (data) {};
+	
+		function HandleResults (data) {
+			msg (JSON.stringify (data, null, 4));
+			$("#title").html('<a onclick="OpenPage(\'' + data.articles[0].url + '\')">' +
+					data.articles[0].title + '</a>');
+			$("#article").html(data.articles[0].description);
+			$("#image").html ('<img src="' + data.articles[0].urlToImage + '" width="250">');
+		}
+	
+		function OpenPage (url) {
+			FetchNews ("newsConsole.jhtml?url=" + url, IgnoreResults);
+			return false;
+		}
+	
+		var service = "https://newsapi.org/v1/articles?source=reuters&sortBy=latest&apiKey=769af25d185c43f4b86de4e2b40540e9";
+	
+		function FetchNews (svc, results) {
+			msg ("fetching...");
+			try {
+				$.ajax ({
+						 type: "GET",
+						 url: svc,
+						 dataType:'json',
+						 data: null,
+						 success: function (data) {
+							results (data);	
+							}
+				});
+			} catch (err) {
+				msg ("FetchNews err: " + err);
+			}
 
-	}
-	
-	var idleTime = 2000; //wake up every 2 seconds
-	var idleMultiplier = 30; //do something every minute
-	var idleCount = 0;
-	var rotAngle = 0;
-		
-	function NewsLoop () {
-		if (idleCount++ >= idleMultiplier) {
-			idleCount = 0;
-			FetchNews(service, HandleResults);
 		}
-		// do the animations
-		rotAngle = (rotAngle+30) % 360;
-		$("#spinner").rotate (rotAngle);
+	
+		var idleTime = 2000; //wake up every 2 seconds
+		var idleMultiplier = 30; //do something every minute
+		var idleCount = 0;
+		var rotAngle = 0;
+		
+		function NewsLoop () {
+			if (idleCount++ >= idleMultiplier) {
+				idleCount = 0;
+				FetchNews(service, HandleResults);
+			}
+			// do the animations
+			rotAngle = (rotAngle+30) % 360;
+			$("#spinner").rotate (rotAngle);
 			
-		return false;
-	}
+			return false;
+		}
 	
-	$(document).ready (function () {
-		setInterval (NewsLoop, idleTime);
-		FetchNews(service, HandleResults);
-	});
+		$(document).ready (function () {
+			setInterval (NewsLoop, idleTime);
+			FetchNews(service, HandleResults);
+		});
 	
 	
-</script>
+	</script>
 
 </body>
 </html>
