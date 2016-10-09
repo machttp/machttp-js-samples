@@ -1,0 +1,130 @@
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>MacHTTP-js Demos and Samples</title>
+	<style>
+		xhtml, xbody {
+			height : 100%;
+		}
+		
+		body {
+			padding: 4px;
+		}
+				
+		.xfilled {
+			height : 100%;
+		}
+		
+		.small-hr {
+			height: 8px;
+			margin-top : 1px;
+			margin-bottom: 1px;
+		}
+		
+	</style>
+	<script src="/_static/lib/jquery/dist/jquery.js"></script>
+	<link rel="stylesheet" href="/_static/lib/fontawesome/css/font-awesome.min.css">
+	<script src="/_static/lib/jquery/dist/jquery.js"></script>
+	<link rel="stylesheet" href="<%
+									var css="";
+										var theme = context.odb.getAttribute ("system/settings/globalTheme");
+										css = context.odb.getAttribute ("system/themes/" + theme);
+									css;
+								%>">
+	<script src="/_static/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="/_static/lib/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
+
+</head>
+<body>
+	<div class="container-fluid filled">
+		<div class="row controls">
+			<div class="col-sm-10">
+				<h2>
+					<img class="image-responsive logo-png" src="images/machttp-icon.png" width="20%">
+					MacHTTP-js Demos and Samples
+				</h2>
+			</div>
+		</div>
+		
+		<hr class="small-hr" />
+		<div class="help-heading" id="tag_toc">
+			<h3>Table of Contents</h3>
+		</div>
+		<ul>
+			<li><a href="#tag_index">Index and Error Files</a></li>
+			<li><a href="#tag_startup">Startup Script</a></li>
+			<li><a href="#tag_jhtml">JHTML Pages</a></li>
+			<li><a href="#tag_actions">Actions and CGIs</a></li>
+			<li><a href="#tag_onepagers">One Pagers</a></li>
+			<li><a href="#tag_moreinfo">More Info</a></li>
+		</ul>
+		
+		<hr class="small-hr" />
+		<div class="help-heading" id="tag_index">
+			<h3>Index and Error Files</h3>
+		</div>
+		<p class="help-text">
+			<b>index.jhtml</b> - 
+			<a href="index.jhtml" target="view">Try it!</a> -
+			<a href="viewsource.jhtml?kind=html&show=index.jhtml" target="view">view source</a><br />
+		</p>
+		<p class="help-text">
+			<b>error.jhtml</b> - 
+			<a href="viewsource.jhtml?kind=html&show=error.jhtml" target="view">view source</a><br />
+		</p>
+
+		<hr class="small-hr" />
+		<div class="help-heading" id="tag_startup">
+			<h3>Startup Script</h3>
+		</div>
+		<p class="help-text">
+			<b>Startup Script Example </b> - 
+			<a href="viewsource.jhtml?kind=javascript&show=scripts/startup.js" target="view">view source</a><br />
+		</p>
+
+		<hr class="small-hr" />
+		<div class="help-heading" id="tag_jhtml">
+			<h3>JHTML Pages</h3>
+		</div>
+		<p class="help-text">
+			<b>JHTML Features</b> - 
+			<a href="jhtml.jhtml" target="view">Try it!</a> -
+			<a href="viewsource.jhtml?kind=html&show=demos/jhtml.jhtml" target="view">view source</a><br />
+		</p>
+
+		<hr class="small-hr" />
+		<div class="help-heading" id="tag_actions">
+			<h3>Actions and CGIs</h3>
+		</div>
+		<p class="help-text">
+			<b>Action Test</b> - 
+			<a href="viewsource.jhtml?kind=javascript&show=demos/actiontet.jcgi" target="view">view source</a><br />
+			<b>Test.jcgi</b> - 
+			<a href="scripts/test.jcgi" target="view">Try it!</a> -
+			<a href="viewsource.jhtml?kind=javascript&show=scripts/test.jcgi" target="view">view source</a><br />
+		</p>
+
+		<hr class="small-hr" />
+		<div class="help-heading" id="tag_onepagers">
+			<h3>One Pagers</h3>
+		</div>
+		<p class="help-text">
+			<b>News Console OnePager</b> - 
+			<a href="one_pagers/newsConsole.jhtml" target="view">Try it!</a> -
+			<a href="viewsource.jhtml?kind=html&show=one_pagers/newsConsole.jhtml" target="view">view source</a><br />
+		</p>
+
+		<hr class="small-hr" />
+		<div class="help-heading" id="tag_moreinfo">
+			<h3>More Info</h3>
+		</div>
+		<p class="help-text">
+			<b>MacHTTP-js Samples on <a href="https://github.com/machttp/machttp-js-samples" target="git">GitHub</a></b><br />
+		</p>
+
+	</div>
+	
+	<script>
+	</script>
+</body>
+</html>

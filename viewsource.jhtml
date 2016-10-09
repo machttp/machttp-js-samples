@@ -1,0 +1,182 @@
+<?
+	//server side code
+	var docroot = context.odb.getAttribute ("system/settings/webSite");
+	var fname = args.req.query.path;
+	var show = args.req.query.show;
+	var kind = args.req.query.kind;
+
+	if (fname !== null && fname !== undefined) {
+		var data = context.verbs.loadFile (docroot + "/" + fname);
+		args.skipHTML = true;
+		data;
+	}
+	else {
+		"";
+	}
+?>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>View Source - <% if (args.skipHTML) ""; else show; %></title>
+	<style>
+		xhtml, xbody {
+			height : 100%;
+		}
+		
+		body {
+			padding: 4px;
+		}
+		
+		.loadMeter {
+			-moz-user-select: none;
+			-webkit-user-select: none;
+			-ms-user-select: none;
+			height: 30px;
+			font-size: 24px;
+		}
+		
+		.xmeterBox {
+			border: solid 1px;
+			height: 40px;
+		}
+		
+		#console  {
+			overflow-y: auto;
+			height : 80%;
+			border : solid 1px;
+			font-size: 100%;
+			font-family: "Menlo Regular", "Lucida Console", Monaco, monospace;
+		}
+		
+		.status-text {
+			font: 9px "Geneva", Helvetica, Arial, sans-serif;
+			height: 40px;
+		}
+		
+		.menu-button {
+			display: block;
+			text-align: center;
+			word-wrap: break-word;
+			font-size: .75em;
+		}
+		
+		.xfilled {
+			height : 100%;
+		}
+		
+		.xcontrols {
+			height : 72px;
+		}
+		
+		.small-hr {
+			height: 8px;
+			margin-top : 1px;
+			margin-bottom: 1px;
+		}
+		
+		#editor { 
+			height: 80%;
+			border-style: solid;
+			border-width: 1px;
+		}
+			
+	</style>
+	<script src="/_static/lib/jquery/dist/jquery.js"></script>
+	<script src="/_static/lib/ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+	<link rel="stylesheet" href="/_static/lib/fontawesome/css/font-awesome.min.css">
+	<script src="/_static/lib/jquery/dist/jquery.js"></script>
+	<link rel="stylesheet" href="<%
+									var css="";
+										var theme = context.odb.getAttribute ("system/settings/globalTheme");
+										css = context.odb.getAttribute ("system/themes/" + theme);
+									if (!args.skipHTML)
+										css;
+									else
+										"";
+								%>">
+	<script src="/_static/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="/_static/lib/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
+
+</head>
+<body>
+	<div class="container-fluid filled">
+		<div class="row controls">
+			<div class="col-sm-10">
+				<h2>
+					<img class="image-responsive logo-png" width="5%" src="images/machttp-icon.png" width="20%">
+					View Source - <% if (args.skipHTML) ""; else show; %>
+				</h2>
+			</div>
+		</div>
+		<div class="row xfill" id="editor-panel"> <!-- ace editor -->
+			<div class="panel-body xfill">
+				<div id="editor">
+				</div>
+			</div>
+		</div>
+		
+	</div>
+	
+	<script>
+	function msg (m) {
+		console.log (m);
+	}
+	
+	var editor = ace.edit("editor");
+	editor.setTheme("ace/theme/twilight");
+
+	var theKind = "text";
+	
+	function ViewResults (data) {
+		editor.getSession().setMode("ace/mode/" + theKind);
+		editor.setValue (data);
+		editor.moveCursorTo (0,0);
+		editor.clearSelection ();
+	}
+	
+	function OpenPage (url, kind) {
+		theKind = kind;
+		FetchContents ("viewsource.jhtml?path=" + url, ViewResults);
+		return false;
+	}
+	
+	function FetchContents (svc, results) {
+		msg ("fetching..." + svc);
+		try {
+			$.ajax ({
+					 type: "GET",
+					 url: svc,
+					 dataType:'text',
+					 data: null,
+					 success: function (data) {
+						results (data);	
+						}
+			});
+		} catch (err) {
+			msg ("FetchContents err: " + err);
+		}
+
+	}
+	
+<?
+	//server side code
+	if (!args.skipHTML) {
+		
+		if (show != null && show != undefined) {
+			if (kind == null || kind == undefined)
+				kind = "text";
+			"OpenPage ('" + show + "', '" + kind + "');\n";
+		}
+		else {
+			"";
+		}	
+	}
+	else {
+		"";
+	}
+?>
+
+	
+	</script>
+</body>
+</html>

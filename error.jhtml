@@ -1,0 +1,6 @@
+<html>
+<head><title>Error</title></head>
+<body>
+	<h2>Error: <% args.options.message; %>: <% args.req.path %></h2>
+</body>
+</html>
