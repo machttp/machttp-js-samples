@@ -47,71 +47,166 @@
 		</div>
 		
 		<hr class="small-hr" />
-		<div class="help-heading" id="tag_toc">
-			<h3>Table of Contents</h3>
+		<div class="row">
+			<div class="col-sm-3">
+				<div class="help-heading" id="tag_toc">
+					<h3>Table of Contents</h3>
+				</div>
+				<ul>
+					<li><a href="#tag_index">Index and Error Files</a></li>
+					<li><a href="#tag_startup">Startup Script</a></li>
+					<li><a href="#tag_jhtml">JHTML Pages</a></li>
+					<li><a href="#tag_actions">Actions and CGIs</a></li>
+					<li><a href="#tag_onepagers">One Pagers</a></li>
+					<li><a href="#tag_moreinfo">More Info</a></li>
+				</ul>
+			</div>
+			<div class="col-sm-9">
+				<div class="help-heading">
+					<h3>About the Demos</h3>
+				</div>
+				<div class="help-text">
+					These samples and demos illustrate most of the capabilities that you can take
+					advantage of with MacHTTP-js right out of the box. In most cases, each example has a
+					"Try it!" link that will run the sample and a "view source" link that will let you 
+					see how it works on the inside. Most of the example files are well-documented and
+					should provide more technical users with some insights into what goes on under the
+					hood with MacHTTP-js. Users are encouraged to submit more samples and demos by making
+					pull requests to the GitHub repo at <a href="https://github.com/machttp/machttp-js-samples" target="git">https://github.com/machttp/machttp-js-samples</a>
+				</div>
+			</div>
 		</div>
-		<ul>
-			<li><a href="#tag_index">Index and Error Files</a></li>
-			<li><a href="#tag_startup">Startup Script</a></li>
-			<li><a href="#tag_jhtml">JHTML Pages</a></li>
-			<li><a href="#tag_actions">Actions and CGIs</a></li>
-			<li><a href="#tag_onepagers">One Pagers</a></li>
-			<li><a href="#tag_moreinfo">More Info</a></li>
-		</ul>
 		
 		<hr class="small-hr" />
 		<div class="help-heading" id="tag_index">
 			<h3>Index and Error Files</h3>
+			By default, MacHTTP-js will look for a file called "index.jhtml" when a request is made for a URL that
+			references a directory. It then looks for "index.html" if it can't find the ".jhtml" file. Finally, for URL
+			requests that cannot be found or otherwise handled by the server, MacHTTP-js will look for a file called "error.jhtml"
+			at the top level of its document tree and return it with appropriate error messages.<p />
 		</div>
 		<p class="help-text">
 			<b>index.jhtml</b> - 
 			<a href="index.jhtml" target="view">Try it!</a> -
 			<a href="viewsource.jhtml?kind=html&show=index.jhtml" target="view">view source</a><br />
+			This is the file you are curently viewing.
 		</p>
 		<p class="help-text">
 			<b>error.jhtml</b> - 
 			<a href="viewsource.jhtml?kind=html&show=error.jhtml" target="view">view source</a><br />
+			A simple error file that returns a brief error message and the offending URL to the user.
 		</p>
 
 		<hr class="small-hr" />
 		<div class="help-heading" id="tag_startup">
 			<h3>Startup Script</h3>
+			MacHTTP-js runs an internal start-up script each time it is launched to take care of
+			regular housekeeping issues and to make sure that the server's internal functions are properly
+			configured. Its last step is to launch a user-specified start-up script if one is present. To 
+			define a start-up script, go to MacHTTP-js Settings and select the Apps tab. Then select the Javascript
+			file you would like MacHTTP-js to run when it launches.<p />
+			These scripts can do anything you'd like, though they only run once. A useful application of the start-up
+			script is to have it launch any OnePager apps you may have installed.<p />
 		</div>
 		<p class="help-text">
 			<b>Startup Script Example </b> - 
 			<a href="viewsource.jhtml?kind=javascript&show=scripts/startup.js" target="view">view source</a><br />
+			This start-up script reads some configuration data from the MacHTTP-js object database and uses that to 
+			launch the newsConsole OnePager.<p />
 		</p>
 
 		<hr class="small-hr" />
 		<div class="help-heading" id="tag_jhtml">
 			<h3>JHTML Pages</h3>
+			JHTML files are regular HTML documents with the option to have embedded Javascripts that are run on the 
+			server before it returns the contents. The scripts can create additional content to be merged into the
+			HTML before it is returned to the browser.<p />
+			Additional JHTML documentation can be found in the MacHTTP-js Quick Start page available under its "Help" menu.<p />
 		</div>
 		<p class="help-text">
 			<b>JHTML Features</b> - 
 			<a href="jhtml.jhtml" target="view">Try it!</a> -
 			<a href="viewsource.jhtml?kind=html&show=demos/jhtml.jhtml" target="view">view source</a><br />
+			This is an example that shows various ways to embed Javascripts in a JHTML file and the sorts of things you can
+			do with server-side JavaScript.<p />
+		</p>
+		<p class="help-text">
+			<b>View Source Tool</b> - 
+			<a href="viewsource.jhtml?kind=markdown&show=README.md" target="view">Try it!</a> -
+			<a href="viewsource.jhtml?kind=html&show=viewsource.jhtml" target="view">view source</a><br />
+			This is a fairly elaborate example that is used by this page. It is a JHTML page that can be used to view the contents
+			of other pages. It relies on the Ace text editor (which is included inside MacHTTP-js) to show (and edit) various files.
+			This example does not save any changes you make to the file.<p />
 		</p>
 
 		<hr class="small-hr" />
 		<div class="help-heading" id="tag_actions">
 			<h3>Actions and CGIs</h3>
+			CGIs (Common Gateway Interface) are scripts that are run by MacHTTP-js to perform some quick action and return it
+			as results to the calling browser. The CGI files are Javascript (.jcgi or .js) that is loaded and run by MacHTTP-js when
+			the CGI is requested. It is the CGI's job to create the return results and to also set the HTTP response code, MIME type, and
+			any other headers required. It relies on the Express.js methods that are part of the "response" object. The MacHTTP-js
+			Quick Start guide has more details on where to find documentation on Express.js.<p />
+			Actions are a direct descendent (though more powerful) of their counterparts in the classic MacHTTP and WebSTAR applications.
+			Actions specify a "route" or "path" and a script that handles requests that match the specified "route." Actions are used
+			to allow a whole directory or subdirectory of items to be handled by the same script. For example, a route like "/thumbnail/:imgID"
+			might allow you to send URLs like "/thumbnail/0001.jpg" which could run a script that created and returned a thumbnail version of
+			the file 0001.jpg.<p />
 		</div>
 		<p class="help-text">
 			<b>Action Test</b> - 
-			<a href="viewsource.jhtml?kind=javascript&show=demos/actiontet.jcgi" target="view">view source</a><br />
+			<a href="viewsource.jhtml?kind=javascript&show=demos/actiontest.jcgi" target="view">view source</a><br />
+			To try this action, use the "Actions" settings in MacHTTP-js to define a new action called "actiontest" with <A NAME=""></A>
+			Action Path that is "/actiontest/:id" (no quotes). Then select the actiontest.jcgi file as the script for the action. Then
+			visit a URL like "http://localhost:3000/actiontest/42?searchArgs=MrWheat" to see how it works.<p/>
+			Note, you must quit and restart MacHTTP-js before new actions will work. See <a href="http://expressjs.com/en/4x/api.html#app.use" target="expr">http://expressjs.com/en/4x/api.html#app.use</a>
+			for more details on how to define routes/paths and how to access various Express.js parameters.<p />
+		</p>
+		<p class="help-text">
 			<b>Test.jcgi</b> - 
 			<a href="scripts/test.jcgi" target="view">Try it!</a> -
 			<a href="viewsource.jhtml?kind=javascript&show=scripts/test.jcgi" target="view">view source</a><br />
+			This is a very simple CGI that returns a JSON result.
+		</p>
+		<p class="help-text">
+			<b>Firmata Test.jcgi</b> - 
+			<a href="scripts/firmataTest.jcgi" target="view">Try it!</a> -
+			<a href="viewsource.jhtml?kind=javascript&show=scripts/firmataTest.jcgi" target="view">view source</a><br />
+			This JCGI illustrates using the Arduino Firmata package to allow MacHTTP-js to talk to an Arduino microcontroller.
+			The "firmata" node.js package is included inside MacHTTP-js and can be used in scripts. This JCGI requires <A NAME=""></A>
+			Arduino to be plugged into a serial port on the computer running MacHTTP-js. That Arduino should be running the
+			"Standard Firmata" sketch (found under Examples in your Arduino IDE). Running this JCGI will start blinking the onboard LED.
+			Because it uses a background process (SetInterval), it will continue until you restart MacHTTP-js.
 		</p>
 
 		<hr class="small-hr" />
 		<div class="help-heading" id="tag_onepagers">
 			<h3>One Pagers</h3>
+			OnePagers are a self-contained Web application that can be launched and run inside of a native window created by
+			MacHTTP-js for your app. This allows you to use HTML5 and Javascript on your desktop computer to create small
+			applications that look and run like native ones. The fundamental concept is to combine serve side processing (scripts) with
+			client side processing (HTML and Javascripts) into a single file that can be easily shared and installed with just
+			a file copy.<p />
 		</div>
 		<p class="help-text">
 			<b>News Console OnePager</b> - 
 			<a href="one_pagers/newsConsole.jhtml" target="view">Try it!</a> -
 			<a href="viewsource.jhtml?kind=html&show=one_pagers/newsConsole.jhtml" target="view">view source</a><br />
+			This OnePager opens up a new native window in MacHTTP-js and shows the most current news headline. It updates itself
+			once a minute and will run until you close its window.<p />
+		</p>
+		<p class="help-text">
+			<b>Arduino OnePager</b> - 
+			<a href="one_pagers/arduino2.jhtml" target="view">Try it!</a> -
+			<a href="viewsource.jhtml?kind=html&show=one_pagers/arduino2.jhtml" target="view">view source</a><br />
+			This is by far the most complex (and geekiest) of OnePagers. It is an example of how to use MacHTTP-js to talk to 
+			the "Internet of Things" (IoT) from your desktop computer. This example requires that you have an Arduino microcontroller
+			connected to the serial port on the computer running MacHTTP-js. You also need to have the Arduino running the sketch that is
+			embedded in the source file (at the end) of this OnePager.<p />
+			Once launched, you need to fill in the name of the serial port that the Arduino is connected to and hit "Connect" in the
+			native window that this OnePager creates. 
+			If you are using a relatively "normal" Arduino like an Uno or Genuino, this app will then allow you to toggle the status of the onboard
+			LED (connected to pin 13) from your desktop computer. More elaborate experiments are left as an exercise to the hacker.<p />
 		</p>
 
 		<hr class="small-hr" />

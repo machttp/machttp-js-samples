@@ -8,10 +8,10 @@
 	if (fname !== null && fname !== undefined) {
 		var data = context.verbs.loadFile (docroot + "/" + fname);
 		args.skipHTML = true;
-		data;
+		data;	//return the contents of the file instead of the HTML below
 	}
 	else {
-		"";
+		""; //keep quiet and return nothing from the script
 	}
 ?>
 <html>
@@ -19,61 +19,10 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>View Source - <% if (args.skipHTML) ""; else show; %></title>
 	<style>
-		xhtml, xbody {
-			height : 100%;
-		}
-		
 		body {
 			padding: 4px;
 		}
-		
-		.loadMeter {
-			-moz-user-select: none;
-			-webkit-user-select: none;
-			-ms-user-select: none;
-			height: 30px;
-			font-size: 24px;
-		}
-		
-		.xmeterBox {
-			border: solid 1px;
-			height: 40px;
-		}
-		
-		#console  {
-			overflow-y: auto;
-			height : 80%;
-			border : solid 1px;
-			font-size: 100%;
-			font-family: "Menlo Regular", "Lucida Console", Monaco, monospace;
-		}
-		
-		.status-text {
-			font: 9px "Geneva", Helvetica, Arial, sans-serif;
-			height: 40px;
-		}
-		
-		.menu-button {
-			display: block;
-			text-align: center;
-			word-wrap: break-word;
-			font-size: .75em;
-		}
-		
-		.xfilled {
-			height : 100%;
-		}
-		
-		.xcontrols {
-			height : 72px;
-		}
-		
-		.small-hr {
-			height: 8px;
-			margin-top : 1px;
-			margin-bottom: 1px;
-		}
-		
+				
 		#editor { 
 			height: 80%;
 			border-style: solid;
@@ -107,9 +56,12 @@
 					View Source - <% if (args.skipHTML) ""; else show; %>
 				</h2>
 			</div>
+			<div class="col-sm-2">
+				<a href="/" class="btn btn-primary">Home</a>
+			</div>
 		</div>
-		<div class="row xfill" id="editor-panel"> <!-- ace editor -->
-			<div class="panel-body xfill">
+		<div class="row" id="editor-panel"> <!-- ace editor -->
+			<div class="panel-body">
 				<div id="editor">
 				</div>
 			</div>
@@ -118,6 +70,8 @@
 	</div>
 	
 	<script>
+	//client side code
+	
 	function msg (m) {
 		console.log (m);
 	}
@@ -128,6 +82,7 @@
 	var theKind = "text";
 	
 	function ViewResults (data) {
+		//sets up the editor, including language (theKind), e.g. html, javascript, text, markdown, etc.
 		editor.getSession().setMode("ace/mode/" + theKind);
 		editor.setValue (data);
 		editor.moveCursorTo (0,0);
@@ -159,7 +114,7 @@
 	}
 	
 <?
-	//server side code
+	//server side code to stick a client side script command in the HTML to open and show the file
 	if (!args.skipHTML) {
 		
 		if (show != null && show != undefined) {
