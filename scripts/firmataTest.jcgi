@@ -1,0 +1,49 @@
+/* firmataTest.jcgi
+
+This sample file is a JCGI that demonstrates how MacHTTP-js can communicate with an
+Arduino microcontroller using the firmata protocol over a serial port. Before you run
+this JCGI by accessing its URL, you must make sure that you have an Arduino board connected
+via the serial port, and that the Arduino is running the "Standard Firmata" sketch, which can be
+found in the Arduino IDE under the "Examples" menu.
+
+When run, this sample will connect to the first Arduino it finds and start blinking the
+onboard LED. Since this uses the setInterval function and no code in this demo is in place to stop it,
+the JCGI will continue to blink the LED until you quit MacHTTP-js.
+*/
+
+var Board = require("firmata");
+
+Board.requestPort(function(error, port) {
+	if (error) {
+		console.log(error);
+		return;
+	}
+	console.log ("Firmata serial port is " + JSON.stringify (port));
+
+	var board = new Board(port.comName);
+
+	board.on("ready", function() {
+		var pin = 13;
+		var state = 1;
+
+		board.pinMode(pin, board.MODES.OUTPUT);
+
+		setInterval(function() {
+				board.digitalWrite(pin, (state ^= 1));
+		}, 500);
+	});
+});
+
+var results = `
+<html><head><title>Firmata Test</title></head>
+	<body>
+		The LED on your Arduino should start blinking and will continue until you quit MacHTTP-js. You can close this window now.
+	</body>
+</html>
+`;
+
+// return some results to the HTTP client
+args.res.status (200);
+args.res.setHeader ("Content-Type", "text/html");
+args.res.end (results);
+results = {'handled': true, 'results': results}; //let MacHTTP-js know we handled the response to the client ourselves

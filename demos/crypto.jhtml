@@ -1,0 +1,58 @@
+<html><head><title>MacHTTP-js Crypto Example</title></head>
+<body>
+<h2>MacHTTP-js Crypto Example</h2>
+This is an example of how to use the public/private key functions that are built into
+MacHTTP-js to create and swap shared keys based on public/private key pairs and then
+use the shared secret to encrypt and decrypt messages between two imaginary users,
+Bob and Alice. See the node.js documentation on the "crypto" package for more details.<p />
+
+<b>Check the MacHTTP-js console for several messages that will show the progress of the
+Javascript code below.</b>
+<p /> The final answer is 
+"<%
+// server-side script to test D-H key exchange and crypto
+const crypto = require('crypto');
+
+// Generate or load prime
+console.log ("testing crypto.");
+console.log ("starting...");
+//generating a new prime takes a LONG time. MacHTTP-js has a good one already in the ODB that you can use.
+var p = context.odb.getAttribute ("system/config/crypto/p");
+
+console.log ("alice...\n" + p);
+
+// Generate Alice's keys...
+const alice = crypto.createDiffieHellman(p, 'hex');
+console.log ("error: " + alice.verifyError);
+const alice_key = alice.generateKeys();
+
+console.log ("bob...\n" + p + "\ngen: " + alice.getGenerator());
+
+// Generate Bob's keys...
+const bob = crypto.createDiffieHellman(p, 'hex');
+console.log ("error: " + bob.verifyError);
+const bob_key = bob.generateKeys();
+
+console.log ("secrets...");
+
+// Exchange and generate the secret...
+const alice_secret = alice.computeSecret(bob_key,'binary','hex');
+console.log ("alice secret: " + alice_secret);
+const bob_secret = bob.computeSecret(alice_key,'binary','hex');
+console.log ("bob secret: " + bob_secret);
+
+console.log ("Alice and Bob have the same secret: " + (alice_secret == bob_secret));
+
+console.log ("encrypt/decrypt test...");
+var data = "This is some secret stuff!";
+var encrypted = context.verbs.encrypt (data, bob_secret);
+console.log ("secret message: " + encrypted);
+var decrypted = context.verbs.decrypt (encrypted, alice_secret);
+console.log ("decrypted message: " + decrypted);
+
+
+console.log ('done.');
+decrypted; //spit out the decrypted string for the browser to show
+%>"
+</body>
+</html>

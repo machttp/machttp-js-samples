@@ -1,0 +1,167 @@
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>JHTML Features</title>
+	<style>
+		body {
+			padding: 4px;
+		}
+				
+		#editor { 
+			height: 80%;
+			border-style: solid;
+			border-width: 1px;
+		}
+			
+	</style>
+	<script src="/_static/lib/jquery/dist/jquery.js"></script>
+	<script src="/_static/lib/ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/_static/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="<%
+									var css="";
+										var theme = context.odb.getAttribute ("system/settings/globalTheme");
+										css = context.odb.getAttribute ("system/themes/" + theme);
+									if (!args.skipHTML)
+										css;
+									else
+										"";
+								%>">
+
+</head>
+<body>
+	<div class="container-fluid filled">
+		<div class="row controls">
+			<div class="col-sm-10">
+				<h2>
+					<img class="image-responsive logo-png" width="5%" src="../images/machttp-icon.png" width="20%">
+					JHTML Features
+				</h2>
+			</div>
+			<div class="col-sm-2">
+				<a href="/" class="btn btn-primary">Home</a>
+			</div>
+		</div>
+		<hr />
+		<div class="row">
+			<div class="col-xs-12">
+				<h3>JHTML Basics</h2>
+				<b>Server-side Embedded Javascript in HTML - </b>
+				MacHTTP-js is based on a greatly enhanced version of the Express.js web server
+				framework for Node.js. You can embed node.js compatible Javascript anywhere within
+				the HTML text of your ".jhtml" pages and the scripts will be executed by the server. This
+				is independent of any scripts that you may have inside SCRIPT tags that will run in your browser.
+				For MacHTTP-js JHTML files, scripts are contained inside &lt;% and %&gt; tags or 
+				&lt;? and ?&gt; tags. For example:<br />
+				<code>
+				Pretend this is HTML&lt;% var x=41; ""; %&gt;... &lt;% x++; x; %&gt; is the meaning of life!
+				</code><br />
+				MacHTTP-js will insert whatever the final expression's results are in place of the
+				&lt;% %&gt; tags before returning the results to the browser, making the output look like:<br />
+				<code>
+				Pretend this is HTML... 42 is the meaning of life!
+				</code><br />
+				<p /><p>Note that all of the embedded Javascript sections are run one at a time, from top to bottom.
+				They also share the same execution environment, so an embedded script at the top of the page can
+				set a variable that can be used by an embedded script at the bottom of the page for example. 
+				The output of each script is merged into the HTML at the appropriate point (unless HTML output has
+				been turned off using args.skipHTML.) This is generally like
+				script tags in client side Javascript within a HTML page.</p>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12">
+				<h3>JHTML Arguments</h2>
+				JHTML pages (and JCGI scripts) are executed with several global variables initialized to some very
+				useful values. You can reference these as you would any variable. Some of these variables
+				refer to objects which have methods associated with them. These methods are generally functions
+				that can allow you to do very powerful things from inside a Web page including local file I/O,
+				script execution, database access, and communications with Internet of Things devices like
+				Raspberry Pis and Arduinos. These globals include:<p />
+				
+				<table class="table">
+					<thead>
+						<th>Global Variable</th><th>Description</th>
+					</thead>
+					<tbody>
+						<tr>
+							<td>context</td>
+							<td>context is a global object that contains references to several other objects
+							that define the runtime context for the script</td>
+						</tr>
+						<tr>
+							<td>context.appName</td>
+							<td>the name of the running application (normally 'MacHTTP-js')</td>
+						</tr>
+						<tr>
+							<td>context.appVersion</td>
+							<td>the version of the running application (e.g., 1.0.22)</td>
+						</tr>
+						<tr>
+							<td>context.odb</td>
+							<td>a reference to the <a href="/_static/docs/module-ODB-ODB.html" target="docs">ODB (Object Data Base) instance</a> inside MacHTTP-js for in-memory database access and persistent storage in the MacHTTP-js settings</td>
+						</tr>
+						<tr>
+							<td>context.verbs</td>
+							<td>a reference to the <a href="/_static/docs/module-Verbs-Verbs.html" target="docs">Verbs object</a> inside MacHTTP-js that has methods for file I/O, script execution, crypto, serial port access, etc.</td>
+						</tr>
+						<tr>
+							<td>context.logger</td>
+							<td>an instance of the node.js winston package for creating log message output</td>
+						</tr>
+						<tr>
+							<td>args</td>
+							<td>args is a global object containing many sub-objects related to Express.js functions and MacHTTP-js JHTML parsing processes</td>
+						</tr>
+						<tr>
+							<td>args.req</td>
+							<td>the <a href="http://expressjs.com/en/4x/api.html#req" target="express">Express.js request object</a> normally passed to Express route handlers</td>
+						</tr>
+						<tr>
+							<td>args.res</td>
+							<td>the <a href="http://expressjs.com/en/4x/api.html#res" target="express">Express.js response object</a> normally passed to Express route handlers</td>
+						</tr>
+						<tr>
+							<td>args.next</td>
+							<td>the Express.js next function callback normally passed to Express route handlers</td>
+						</tr>
+						<tr>
+							<td>args.options</td>
+							<td>the Express.js options object normally passed to Express template renderers</td>
+						</tr>
+						<tr>
+							<td>args.skipHTML</td>
+							<td>a boolean flag set by JHTML scripts and used by MacHTTP-js to determine whether the JHTML processor should skip or show HTML that follows in the file.</td>
+						</tr>
+						<tr>
+							<td>console</td>
+							<td>Javascript's console object, for making calls to console.log, etc.</td>
+						</tr>
+						<tr>
+							<td>process</td>
+							<td>the <a href="https://nodejs.org/dist/latest-v6.x/docs/api/process.html" target="process">node.js process object</a></td>
+						</tr>
+						<tr>
+							<td>require</td>
+							<td>the node.js 'require' function that allows you to include node.js packages that MacHTTP-js includes</td>
+						</tr>
+						<tr>
+							<td>scripts</td>
+							<td>the MacHTTP-js <a href="/_static/docs/module-Scripts-Scripts.html" target="docs">Scripts object</a> whose methods are used to launch additional scripts</td>
+						</tr>
+						<tr>
+							<td>debug</td>
+							<td>a reference to a node.js debug module instance, used by JHTML scripts to return debugging info for display in the console or log. e.g. debug.info('some message')</td>
+						</tr>
+						<tr>
+							<td>results</td>
+							<td>an untyped variable that is initially null and is set by the JTML
+							scripts to the results that should be returned by Express.js if the JHTML script doesn't
+							handle the response itself.</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
