@@ -32,8 +32,7 @@
 	</style>
 	<script src="/_static/lib/jquery/dist/jquery.js"></script>
 	<script src="/_static/lib/ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
-	<link rel="stylesheet" href="/_static/lib/fontawesome/css/font-awesome.min.css">
-	<script src="/_static/lib/jquery/dist/jquery.js"></script>
+	<script src="/_static/lib/bootstrap/dist/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="<%
 									var css="";
 										var theme = context.odb.getAttribute ("system/settings/globalTheme");
@@ -43,8 +42,6 @@
 									else
 										"";
 								%>">
-	<script src="/_static/lib/bootstrap/dist/js/bootstrap.min.js"></script>
-	<script src="/_static/lib/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
 
 </head>
 <body>

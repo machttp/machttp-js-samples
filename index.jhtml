@@ -3,18 +3,10 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>MacHTTP-js Demos and Samples</title>
 	<style>
-		xhtml, xbody {
-			height : 100%;
-		}
-		
 		body {
 			padding: 4px;
 		}
 				
-		.xfilled {
-			height : 100%;
-		}
-		
 		.small-hr {
 			height: 8px;
 			margin-top : 1px;
@@ -23,16 +15,13 @@
 		
 	</style>
 	<script src="/_static/lib/jquery/dist/jquery.js"></script>
-	<link rel="stylesheet" href="/_static/lib/fontawesome/css/font-awesome.min.css">
-	<script src="/_static/lib/jquery/dist/jquery.js"></script>
+	<script src="/_static/lib/bootstrap/dist/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="<%
 									var css="";
 										var theme = context.odb.getAttribute ("system/settings/globalTheme");
 										css = context.odb.getAttribute ("system/themes/" + theme);
 									css;
 								%>">
-	<script src="/_static/lib/bootstrap/dist/js/bootstrap.min.js"></script>
-	<script src="/_static/lib/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
 
 </head>
 <body>
@@ -125,10 +114,17 @@
 		</div>
 		<p class="help-text">
 			<b>JHTML Features</b> - 
-			<a href="jhtml.jhtml" target="view">Try it!</a> -
+			<a href="demos/jhtml.jhtml" target="view">Try it!</a> -
 			<a href="viewsource.jhtml?kind=html&show=demos/jhtml.jhtml" target="view">view source</a><br />
 			This is an example that shows various ways to embed Javascripts in a JHTML file and the sorts of things you can
 			do with server-side JavaScript.<p />
+		</p>
+		<p class="help-text">
+			<b>Crypto Example</b> - 
+			<a href="demos/crypto.jhtml" target="view">Try it!</a> -
+			<a href="viewsource.jhtml?kind=html&show=demos/crypto.jhtml" target="view">view source</a><br />
+			This shows how a JCGI or JHTML page can use the built-in cryptographic functions that MacHTTP-js
+			provides to do public/private key exchange and encryption. See the <a href="https://nodejs.org/dist/latest-v6.x/docs/api/crypto.html" target="crypto">node.js Crypto module</a> for more details.<p />
 		</p>
 		<p class="help-text">
 			<b>View Source Tool</b> - 
