@@ -245,7 +245,7 @@
 </html>
 
 <!--
-// copy everything from this line....
+// Arduino sketch: copy everything from this line....
 // (assumes this sketch is running on an Arduino with pin 13 driving a LED (the on-board LED on an Uno))
 //
 #define BSIZE 24
