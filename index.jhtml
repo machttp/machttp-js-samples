@@ -192,6 +192,14 @@
 			once a minute and will run until you close its window.<p />
 		</p>
 		<p class="help-text">
+			<b>Drag and Drop OnePager</b> - 
+			<a href="one_pagers/dragdrop.jhtml" target="view">Try it!</a> -
+			<a href="viewsource.jhtml?kind=html&show=one_pagers/dragdrop.jhtml" target="view">view source</a><br />
+			This OnePager opens up a new native window that allows you to drag and drop files from your desktop and
+			then simulates processing them on the server. Everything you need to kick off some workflow for a drag
+			and drop application.<p />
+		</p>
+		<p class="help-text">
 			<b>Arduino OnePager</b> - 
 			<a href="one_pagers/arduino2.jhtml" target="view">Try it!</a> -
 			<a href="viewsource.jhtml?kind=html&show=one_pagers/arduino2.jhtml" target="view">view source</a><br />
